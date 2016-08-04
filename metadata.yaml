@@ -1,0 +1,26 @@
+_repo: The-Poems-of-Emma-Lazarus-Volume-2--13-Jewish-poems--Translations_3473
+_version: 0.0.1
+creator:
+  author:
+    agent_name: Lazarus, Emma
+    birthdate: 1849
+    deathdate: 1887
+    gutenberg_agent_id: '1155'
+    url: http://www.gutenberg.org/2009/agents/1155
+    wikipedia: http://en.wikipedia.org/wiki/Emma_Lazarus
+description: ''
+gutenberg_issued: '2002-10-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '3473'
+language: en
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcsh 'Literature -- Collections'
+- !lcc 'PS'
+- !lcsh 'American poetry'
+- GITenberg
+title: "The Poems of Emma Lazarus, Volume 2\r\nJewish poems: Translations"
+url: http://www.gutenberg.org/ebooks/3473
