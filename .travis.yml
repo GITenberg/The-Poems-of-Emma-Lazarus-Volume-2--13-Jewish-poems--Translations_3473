@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: VcKS0q5ROKIuHrvpi3ZrYKIFQ622G21ml0baGzFMMOgj9zjbkgYU/lhNY9SvpOoOZYCEPqRmBpUrFuWEhVfofgAYDshpo/EtN+EpIoQTMYeh70mMKmQIkz8ZEyl4v+DUCYdX1QNOBDrEJJATVzpqfvxFwMjDjpIJQaPVkdeD4jFCJxiHdm5v/koXXLiiu2ZakMx7RQs7P/QzgiGW3CgwILxX1NPB9bKJzwEf5E/lMUnHYuUkywCjlfddHrRuW1ZC/PCKhj3If9zj3K0/b3phtENhS6nrNnNukqFuyj+gLPfIpoeL8eoFOMJqedIvkNJoSfF94K27NnGP88SQrOyKJ/93Hbw8AzwMuQbihkytBvg/IPKWJ4dFISbpEUAhTs8jOe5jREmcQcmkOYdD4Efxg7Ilug7uZ47BLuGVcJH7NrzzBQcI4MmUbY79Ud8yiV6R7/J9O5YaMUwveGy5b5NbBuCL0/LpiNvfDmDyt3109jMc+Ij3DlT00xUko4DXgsfrxG192j8bjV7avLKxnUeX0OHId1U3cr5zOplzx7u/R3SmXF3iH48zpzNZ/Pilw3pc6g/D9JbHZOgC+FaokdI7wRsouN7TD4V/8HxyC25buBgKe8pAdtpPwutA1Eik50sYixDEuN5qi4vh+0jV8ilNK8Ylu3iZe4/jJL7Ra9b14r4=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/The-Poems-of-Emma-Lazarus-Volume-2--13-Jewish-poems--Translations_3473
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
